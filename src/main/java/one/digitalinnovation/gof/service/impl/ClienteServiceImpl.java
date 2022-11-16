@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import one.digitalinnovation.gof.handler.BusinessException;
 import one.digitalinnovation.gof.model.Cliente;
 import one.digitalinnovation.gof.model.Endereco;
 import one.digitalinnovation.gof.repository.ClienteRepository;
@@ -42,7 +43,10 @@ public class ClienteServiceImpl implements ClienteService {
 	@Override
 	public Cliente buscarPorId(Long id) {
 		// Buscar Cliente por ID.
-		Optional<Cliente> cliente = clienteRepository.findById(id);
+    Optional<Cliente> cliente = clienteRepository.findById(id);
+    if (!cliente.isPresent()) {
+      throw new BusinessException("Not found cliente");
+    }
 		return cliente.get();
 	}
 
@@ -57,13 +61,19 @@ public class ClienteServiceImpl implements ClienteService {
 		Optional<Cliente> clienteBd = clienteRepository.findById(id);
 		if (clienteBd.isPresent()) {
 			salvarClienteComCep(cliente);
-		}
+          } else {
+       throw new BusinessException("Not found cliente");
+    }
 	}
 
 	@Override
 	public void deletar(Long id) {
-		// Deletar Cliente por ID.
-		clienteRepository.deleteById(id);
+    // Deletar Cliente por ID.
+    if (this.buscarPorId(id)== null) {
+      throw new BusinessException("Not found cliente");
+    } else {    
+    clienteRepository.deleteById(id);
+    }
 	}
 
 	private void salvarClienteComCep(Cliente cliente) {

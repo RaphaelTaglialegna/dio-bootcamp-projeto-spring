@@ -20,7 +20,7 @@ public class SwaggerConfig {
   private Contact contact() {
     return new Contact(
         "Raphael Taglialegna",
-        "https://github.com/RaphaelTaglialegna",
+        "https://github.com/RaphaelTaglialegna/dio-bootcamp-projeto-spring",
         "raphael.trcosta@gmail.com");
   }
     
@@ -28,12 +28,12 @@ public class SwaggerConfig {
 
         ApiInfoBuilder apiInfoBuilder = new ApiInfoBuilder();
 
-        apiInfoBuilder.title("Title - Rest API");
+        apiInfoBuilder.title("Projeto Spring Boot Dio");
         apiInfoBuilder.description("API exemplo de uso de Springboot REST API");
         apiInfoBuilder.version("1.0");
         apiInfoBuilder.termsOfServiceUrl("Termo de uso: Open Source");
-        apiInfoBuilder.license("Licença - Sua Empresa");
-        apiInfoBuilder.licenseUrl("http://www.seusite.com.br");
+        apiInfoBuilder.license("Licença - Raphael Taglialegna");
+        apiInfoBuilder.licenseUrl("https://github.com");
         apiInfoBuilder.contact(this.contact());
 
         return apiInfoBuilder;
@@ -45,7 +45,7 @@ public class SwaggerConfig {
 
         docket
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("dio.web.api.controller"))
+                .apis(RequestHandlerSelectors.basePackage("one.digitalinnovation.gof.controller"))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(this.informacoesApi().build())
